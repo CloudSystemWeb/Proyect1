@@ -1,0 +1,70 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="../templates/uiConMenu.xhtml">
+	<ui:define name="content">
+
+
+		<h:form id="idform1">
+			<h:panelGrid columns="2" styleClass="alineacionColumna">
+				<h:outputText value="Socio" />
+						<h:selectOneMenu value="#{obligacionAction.obligacion.socio.idSocio}">
+							<f:selectItem itemLabel="Seleccione" itemValue="" />
+							<f:selectItems value="#{comboAction.socio}" var="s"
+								itemValue="#{s.idSocio}" itemLabel="#{s.nombres}" />
+						</h:selectOneMenu>
+
+				<p:commandButton value="Enviar" ajax="false"
+					action="#{obligacionAction.consultaObligacion}" />
+			</h:panelGrid>
+
+			<p:dataTable binding="#{obligacionAction.dttObligaciones}"
+				value="#{obligacionAction.listaObligacion}" var="bean">
+
+				<f:facet name="header">Listado de Pagos de Obligaciones</f:facet>
+
+				<p:column headerText="id">
+					<h:outputText value="#{bean.idpago}" />
+				</p:column>
+				
+				<p:column headerText="Socio">
+					<h:outputText value="#{bean.socio.idSocio}" />
+				</p:column>
+				
+				<p:column headerText="Descripcion">
+					<h:outputText value="#{bean.descripcion}" />
+				</p:column>
+				
+				<p:column headerText="Monto S/.">
+					<h:outputText value="#{bean.monto}" />
+				</p:column>
+				
+				<p:column headerText="FechaEmi">
+					<h:outputText value="#{bean.fechaemision}" />
+				</p:column>
+				
+				<p:column headerText="Obligacion">
+					<h:outputText value="#{bean.tipoobligacion.descripcion}" />
+				</p:column>
+				
+				<p:column headerText="FechaVenc">
+					<h:outputText value="#{bean.fechavencimiento}" />
+				</p:column>
+				
+				<p:column headerText="-">
+					<h:commandButton id="id1"
+						actionListener="#{obligacionAction.buscaObligacion}"
+						image="/images/icons/editar.ico" />
+				</p:column>
+			</p:dataTable>
+
+
+
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+

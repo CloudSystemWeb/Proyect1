@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:view contentType="text/html">
+
+	<h:head>
+		<f:facet name="first">
+			<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+			<title>Sistema Socios Pandero</title>
+		</f:facet>
+
+		<link type="text/css" rel="stylesheet"
+			href="#{request.contextPath}/css/default.css" />
+		<link type="text/css" rel="stylesheet"
+			href="#{request.contextPath}/css/syntaxhighlighter/syntaxhighlighter.css" />
+
+		<ui:insert name="head"></ui:insert>
+
+	</h:head>
+
+	<h:body>
+
+		<div id="header" align="center">
+			<div style="clear: both;">&nbsp;</div>
+			<H1>Sistema Socios Pandero</H1>
+		</div>
+
+		<div id="page" class="ui-widget">
+			<div id="sidebar">
+
+				<!-- <h3 style="margin-top: 2px">Menú</h3> -->
+				<div>
+					<table>
+						<tr>
+							<td>
+								<ul class="nav">
+									<!-- Es un forEach en JSF -->
+									<ui:repeat var="aux" value="#{sessionScope.USUARIO_ACCESO}">
+										<li><a href="#{request.contextPath}/#{aux[2]}"> <h:outputLabel
+													value="#{aux[3]}" />
+										</a></li>
+									</ui:repeat>
+
+									<li><a href="../ui/principal.jsf"><h:outputLabel
+												value="Inicio" /></a></li>
+
+									<li><a href=""> Registros </a>
+										<ul>
+											<li><a
+												href="#{request.contextPath}/ui/registraSocio.jsf"> <h:outputLabel
+														value="Registro Socios" />
+											</a></li>
+											<li><a
+												href="#{request.contextPath}/ui/registraPago.jsf"> <h:outputLabel
+														value="Registro Pagos" />
+											</a></li>
+											<li><a href=""> Registro Cobros </a></li>
+										</ul></li>
+
+									<li><a href=""> Consultas </a>
+										<ul>
+											<li><a
+												href="#{request.contextPath}/ui/consultaSocio.jsf"> <h:outputLabel
+														value="Consulta Socios" />
+												</a></li>
+											<li><a
+												href="#{request.contextPath}/ui/consultaPago.jsf"> <h:outputLabel
+														value="Consulta Pagos" />
+												</a></li>
+											<li><a href=""> Consulta Cobros </a></li>
+										</ul></li>
+
+									<li><a href="#{request.contextPath}/#{LoginAction.salir}">
+											<h:outputLabel value="Salir" />
+									</a></li>
+								</ul>
+
+							</td>
+						</tr>
+					</table>
+				</div>
+
+
+			</div>
+
+
+			<!-- hasta aqui el campo del navegador -->
+
+
+			<div id="content2">
+				<div class="post2">
+					<ui:insert name="content2">...</ui:insert>
+				</div>
+			</div>
+
+			<div style="clear: both;">&nbsp;</div>
+		</div>
+	</h:body>
+
+
+
+</f:view>
+</html>

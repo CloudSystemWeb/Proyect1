@@ -1,0 +1,250 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="../templates/uiConMenu.xhtml">
+
+
+	<ui:define name="content">
+
+
+		<div align="left" style="width: 200px;">
+
+			<table>
+
+				<h:panelGrid columns="2" styleClass="alineacionColumna"
+					cellspacing="5" border="0">
+					<table>
+						<div>
+							<td><video id='v' style="width: 150px; height: 150px;">
+								</video>
+								<button styleClass="ui-priority-primary" id='t'>Tomar
+									una foto</button></td>
+ 
+							<td>
+								<canvas id="c" style="width: 150px; height: 150px;"> </canvas>
+							</td>
+						</div>
+
+					</table>
+				</h:panelGrid>
+
+				<h:form enctype="multipart/form-data" id="idForm"
+					style="width: 200px;">
+
+					<p:growl id="growl" life="2000" />
+
+					<h:inputHidden id="idHidden" value="#{socioAction.fotoEn64}"
+						required="true" label="Ingrese una fotografia" />
+
+					<h:inputHidden id="idHidden2" value="#{socioAction.firmaEn64}"
+						required="true" label="Ingrese una firma" />
+
+					<h:panelGrid columns="2" styleClass="alineacionColumna"
+						cellpadding="0" border="1">
+
+						<h:outputText value="DNI" />
+						<h:inputText id="txtDni" value="#{socioAction.socio.dni}"
+							required="true" label="Ingrese su DNI">
+							<f:validateLongRange for="txtDni" />
+							<f:validateLength minimum="8" maximum="8" />
+						</h:inputText>
+
+						<h:outputText value="NOMBRE" />
+						<h:inputText id="txtnombre" value="#{socioAction.socio.nombres}"
+							required="true" label="Ingrese sus Nombres">
+							<f:validateRegex pattern="[A-Za-z]*" />
+							<f:validateLength minimum="3" maximum="45"></f:validateLength>
+						</h:inputText>
+
+						<h:outputText value="APELLIDOS" />
+						<h:inputText id="txtapel" value="#{socioAction.socio.apellidos}"
+							required="true" label="Ingrese sus Apellidos">
+							<f:validateRegex pattern="[A-Za-z]*" />
+							<f:validateLength minimum="3" maximum="45"></f:validateLength>
+						</h:inputText>
+
+						<h:outputText value="FECHA DE NACIMIENTO" />
+						<p:calendar value="#{socioAction.socio.fechaNacimiento}"
+							pattern="yyyy-MM-dd" required="true"
+							requiredMessage="Ingrese su Fecha de nacimiento" />
+
+
+						<h:outputText value="SEXO" />
+						<h:selectOneMenu value="#{socioAction.socio.sexo.idSexo}">
+							<f:selectItem itemLabel="Seleccione" itemValue="" />
+							<f:selectItems value="#{comboAction.sex}" var="s"
+								itemValue="#{s.idSexo}" itemLabel="#{s.descripcion}" />
+						</h:selectOneMenu>
+
+						<h:outputText value="ESTADO CIVIL" />
+						<h:selectOneMenu
+							value="#{socioAction.socio.estadoCivil.idEstadoCivil}">
+							<f:selectItem itemLabel="Seleccione" itemValue="" />
+							<f:selectItems value="#{comboAction.estCivil}" var="x"
+								itemValue="#{x.idEstadoCivil}" itemLabel="#{x.descripcion}" />
+						</h:selectOneMenu>
+
+						<h:outputText value="CONYUGE" />
+						<h:inputText id="txtCony" value="#{socioAction.socio.conyuge}"
+							required="true" label="Ingrese Conyugue o conviviente">
+							<f:validateRegex pattern="[A-Za-z]*" />
+							<f:validateLength minimum="0" maximum="45" />
+						</h:inputText>
+
+						<h:outputText value="CARGO O ROL" />
+						<h:selectOneMenu value="#{socioAction.socio.rol.idRol}">
+							<f:selectItem itemLabel="Seleccione" itemValue="" />
+							<f:selectItems value="#{comboAction.roles}" var="x"
+								itemValue="#{x.idRol}" itemLabel="#{x.descripcion}" />
+						</h:selectOneMenu>
+
+						<h:outputText value="DEPARTAMENTO" />
+						<p:selectOneMenu
+							value="#{socioAction.socio.departamento.idDepartamento}"
+							size="30" style="width:225px">
+							<f:selectItem itemLabel="Seleccione" itemValue="" />
+							<f:selectItems value="#{comboAction.departamentos}" var="x"
+								itemValue="#{x.idDepartamento}" itemLabel="#{x.nomDepartamento}" />
+						</p:selectOneMenu>
+
+						<h:outputText value="PROVINCIA" />
+						<p:selectOneMenu
+							action="#{socioAction.socio.provincia.idProvincia}" size="30"
+							style="width:225px">
+							<f:selectItem itemLabel="Seleccione" itemValue="" />
+							<f:selectItems value="#{comboAction.provincias}" var="x"
+								itemValue="#{x.idProvincia}" itemLabel="#{x.nomProvincia}" />
+						</p:selectOneMenu>
+
+
+						<h:outputText value="DISTRITO" />
+						<p:selectOneMenu value="#{socioAction.socio.distrito.idDistrito}"
+							size="30" style="width:225px">
+							<f:selectItem itemLabel="Seleccione" itemValue="" />
+							<f:selectItems value="#{comboAction.distritos}" var="x"
+								itemValue="#{x.idDistrito}" itemLabel="#{x.nomDistrito}" />
+						</p:selectOneMenu>
+
+
+						<h:outputText value="DIRECCION" />
+						<h:inputText id="txtDir" value="#{socioAction.socio.direccion}"
+							required="true" label="Ingrese su direccion actual">
+							<f:validateLength minimum="10" maximum="80"></f:validateLength>
+						</h:inputText>
+
+
+						<h:outputText value="Telefono" />
+						<h:inputText id="txttelf" value="#{socioAction.socio.telefono}"
+							required="true" validatorMessage="Formato invalido solo digitos">
+							<f:validateRegex pattern="[0-9]*" />
+							<f:validateLength minimum="9" maximum="9" />
+							<f:validateLongRange />
+						</h:inputText>
+
+						<h:outputText value="CORREO" />
+						<h:inputText id="txtCorreo" value="#{socioAction.socio.email}"
+							required="true" requiredMessage="Ingrese su Email"
+							pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})+$">
+							<f:validateLength minimum="12" maximum="35" />
+						</h:inputText>
+
+						<h:outputText value="USUARIO" />
+						<h:inputText id="txtUsu" value="#{socioAction.socio.usuario}"
+							required="true" label="Ingresar usuario">
+							<f:validateRegex pattern="[A-Za-z0-9-\_]*" />
+							<f:validateLength minimum="5" maximum="10"></f:validateLength>
+						</h:inputText>
+
+						<h:outputText value="CLAVE" />
+						<h:inputText id="txtCla" value="#{socioAction.socio.clave}"
+							required="true" label="Ingresar clave" pattern="^[_A-Za-z]+$">
+							<f:validateLength minimum="4" maximum="15"></f:validateLength>
+						</h:inputText>
+
+
+						 
+							<h:outputText value="FIRMA:" />
+							 
+								<div id="signature-pad" class="m-signature-pad">
+									<div class="m-signature-pad--body">
+										<canvas>ddd</canvas>
+									</div>
+
+									<div class="m-signature-pad--footer">
+										<div class="description">Firma Socio</div>
+										<button type="button" class="button clear"
+											styleClass="ui-priority-primary" data-action="clear">Clear</button>
+										<button type="button" class="button save"
+											styleClass="ui-priority-primary" data-action="save">Save</button>
+									</div>
+								</div>
+							 
+						 
+
+ 
+						<p:commandButton styleClass="ui-priority-primary" value="Enviar"
+							ajax="false" action="#{socioAction.registraSocio}" />
+						<p:commandButton value="Cancelar" ajax="false"
+							action="#{generalAction.salir}" />
+
+
+
+						<script>
+							var varHidden = document
+									.getElementById("idForm:idHidden");
+
+							window.addEventListener('load', init);
+							function init() {
+								var video = document.querySelector('#v'), canvas = document
+										.querySelector('#c'), btn = document
+										.querySelector('#t');
+
+								navigator.getUserMedia = (navigator.getUserMedia
+										|| navigator.webkitGetUserMedia
+										|| navigator.mozGetUserMedia || navigator.msGetUserMedia);
+
+								if (navigator.getUserMedia) {
+									navigator.getUserMedia({
+										video : true
+									}, function(stream) {
+										video.src = window.URL
+												.createObjectURL(stream);
+										video.play();
+									}, function(e) {
+										console.log(e);
+									})
+								} else
+									alert('Tienes un navegador obsoleto');
+
+								video.addEventListener('loadedmetadata',
+										function() {
+											canvas.width = video.videoWidth;
+											canvas.height = video.videoHeight;
+										}, false);
+
+								btn.addEventListener('click',
+										function() {
+
+											canvas.getContext('2d').drawImage(
+													video, 0, 0);
+											var imgData = canvas
+													.toDataURL('image/png');
+
+											varHidden.setAttribute('value',
+													imgData);
+										});
+							}
+						</script>
+
+						<script src="#{request.contextPath}/js/signature_pad.js"></script>
+						<script src="#{request.contextPath}/js/app.js"></script>
+
+					</h:panelGrid>
+				</h:form>
+			</table>
+		</div>
+	</ui:define>
+</ui:composition>
+

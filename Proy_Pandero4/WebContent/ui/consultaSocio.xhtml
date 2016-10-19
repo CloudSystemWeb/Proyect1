@@ -1,0 +1,98 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="../templates/uiConMenu.xhtml">
+	<ui:define name="content">
+
+
+		<h:form id="idform1">
+			<h:panelGrid columns="2" styleClass="alineacionColumna">
+				<h:outputText value="Dni" />
+				<h:outputText value="Socio" />
+				<h:inputText value="#{socioAction.dni}" />
+
+				<p:commandButton value="Enviar" ajax="false"
+					action="#{socioAction.consultaSocio}" />
+			</h:panelGrid>
+
+			<p:dataTable binding="#{socioAction.dttSocio}"
+				value="#{socioAction.listaSocio}" var="bean">
+
+				<f:facet name="header">Listado de Socios</f:facet>
+
+				<p:column headerText="id">
+					<h:outputText value="#{bean.idSocio}" />
+				</p:column>
+				<p:column headerText="Nombres">
+					<h:outputText value="#{bean.nombres}" />
+				</p:column>
+				<p:column headerText="Apellidos">
+					<h:outputText value="#{bean.apellidos}" />
+				</p:column>
+				<p:column headerText="FechaNac">
+					<h:outputText value="#{bean.fechaNacimiento}" />
+				</p:column>
+					
+ 	  
+					<p:column headerText="Sexo">
+					<h:outputText value="#{bean.sexo.descripcion}" />
+				</p:column>
+				<p:column headerText="EstadoCivil">
+					<h:outputText value="#{bean.estadoCivil.descripcion}" />
+				</p:column>
+
+				<p:column headerText="Conyuge">
+					<h:outputText value="#{bean.conyuge}" />
+				</p:column>
+
+				<p:column headerText="Rol">
+					<h:outputText value="#{bean.rol.descripcion}" />
+				</p:column>
+
+				<p:column headerText="Departamento">
+					<h:outputText value="#{bean.departamento.nomDepartamento}" />
+				</p:column>
+				<p:column headerText="Provincia">
+					<h:outputText value="#{bean.provincia.nomProvincia}" />
+				</p:column>
+				<p:column headerText="Distrito">
+					<h:outputText value="#{bean.distrito.nomDistrito}" />
+				</p:column>
+				<p:column headerText="Direccion">
+					<h:outputText value="#{bean.direccion}" />
+				</p:column>
+				<p:column headerText="Telefono">
+					<h:outputText value="#{bean.telefono}" />
+				</p:column>
+				<p:column headerText="Email">
+					<h:outputText value="#{bean.email}" />
+				</p:column>
+				<p:column headerText="Usuario">
+					<h:outputText value="#{bean.usuario}" />
+				</p:column>
+				<p:column headerText="Clave">
+					<h:outputText value="#{bean.clave}" />
+				</p:column>
+				<p:column headerText="Foto">
+					<h:outputText value="#{bean.foto}" />
+				</p:column>
+				<p:column headerText="Firma">
+					<h:outputText value="#{bean.firma}" />
+				</p:column>
+				<p:column headerText="-">
+					<h:commandButton id="id1"
+						actionListener="#{alumnoAction.eliminaAlumno}"
+						image="/images/icons/eliminar.ico" />
+				</p:column>
+			</p:dataTable>
+
+
+
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+

@@ -1,0 +1,119 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="../templates/uiConMenu.xhtml">
+
+
+	<ui:define name="content">
+
+
+		<div align="left" style="width: 200px;">
+
+			<table>
+
+			<h:form  id="idForm"
+					style="width: 250px;">
+					<h:panelGrid columns="2" styleClass="alineacionColumna"
+					cellspacing="6" border="2">
+				
+					<h:outputText value="Socio" />
+						<h:selectOneMenu value="#{obligacionAction.obligacion.socio.idSocio}">
+							<f:selectItem itemLabel="Seleccione" itemValue="" />
+							<f:selectItems value="#{comboAction.socio}" var="s"
+								itemValue="#{s.idSocio}" itemLabel="#{s.nombres}" />
+						</h:selectOneMenu>
+							
+						<h:outputText value="Motivo del Pago" />
+						<h:inputText id="txtMotivo" value="#{obligacionAction.obligacion.descripcion}"
+							required="true">
+							<f:validateRegex pattern="[A-Za-z]*" />
+							<f:validateLength minimum="3" maximum="45"></f:validateLength>
+						</h:inputText>
+
+						<h:outputText value="Monto S/." />
+						<h:inputText id="txtMonto" value="#{obligacionAction.obligacion.monto}"
+							required="true" label="Ingrese el Monto" validatorMessage="El monto debe ser decimal , ej; 000.00">
+							<f:convertNumber pattern="#,###.000"/>
+						</h:inputText>
+
+						<h:outputText value="Fecha de Emision" />
+						<p:calendar value="#{obligacionAction.obligacion.fechaemision}"
+							pattern="yyyy-MM-dd" required="true"
+							requiredMessage="Fecha de Emision" />
+
+						<h:outputText value="Tipo de Obligacion" />
+						<h:selectOneMenu value="#{obligacionAction.obligacion.tipoobligacion.idTipoObligacion}">
+							<f:selectItem itemLabel="Seleccione" itemValue="" />
+							<f:selectItems value="#{comboAction.tipoobligacion}" var="s"
+								itemValue="#{s.idTipoObligacion}" itemLabel="#{s.descripcion}" />
+						</h:selectOneMenu>
+						
+						<h:outputText value="Fecha de Vencimiento" />
+						<p:calendar value="#{obligacionAction.obligacion.fechavencimiento}"
+							pattern="yyyy-MM-dd" required="true"
+							requiredMessage="Fecha de Vencimiento" />
+							
+						<p:commandButton styleClass="ui-priority-primary" value="Enviar"
+							ajax="false" action="#{obligacionAction.registraObligacion}" />
+						<p:commandButton value="Cancelar" ajax="false"
+							action="#{generalAction.salir}" />
+
+						<script>
+							var varHidden = document
+									.getElementById("idForm:idHidden");
+
+							window.addEventListener('load', init);
+							function init() {
+								var video = document.querySelector('#v'), canvas = document
+										.querySelector('#c'), btn = document
+										.querySelector('#t');
+
+								navigator.getUserMedia = (navigator.getUserMedia
+										|| navigator.webkitGetUserMedia
+										|| navigator.mozGetUserMedia || navigator.msGetUserMedia);
+
+								if (navigator.getUserMedia) {
+									navigator.getUserMedia({
+										video : true
+									}, function(stream) {
+										video.src = window.URL
+												.createObjectURL(stream);
+										video.play();
+									}, function(e) {
+										console.log(e);
+									})
+								} else
+									alert('Tienes un navegador obsoleto');
+
+								video.addEventListener('loadedmetadata',
+										function() {
+											canvas.width = video.videoWidth;
+											canvas.height = video.videoHeight;
+										}, false);
+
+								btn.addEventListener('click',
+										function() {
+
+											canvas.getContext('2d').drawImage(
+													video, 0, 0);
+											var imgData = canvas
+													.toDataURL('image/png');
+
+											varHidden.setAttribute('value',
+													imgData);
+										});
+							}
+						</script>
+
+						<script src="#{request.contextPath}/js/signature_pad.js"></script>
+						<script src="#{request.contextPath}/js/app.js"></script>
+
+					</h:panelGrid>
+				</h:form>
+			</table>
+		</div>
+	</ui:define>
+</ui:composition>
+
